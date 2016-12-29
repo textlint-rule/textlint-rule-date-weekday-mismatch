@@ -7,7 +7,7 @@ textlint rule that found mismatch date and weekday.
 Correct date and weekday.
 
     2016-12-29(Thursday)
-    2016-12-29(木曜)
+    2016-12-29(木曜日)
 
 **NG**:
 
