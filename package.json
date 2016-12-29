@@ -9,7 +9,7 @@
     "src/"
   ],
   "name": "textlint-rule-date-weekday-mismatch",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "textlint rule that found mismatch date and weekday.",
   "main": "lib/textlint-rule-date-weekday-mismatch.js",
   "scripts": {
