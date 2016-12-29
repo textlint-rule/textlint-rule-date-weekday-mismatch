@@ -4,6 +4,7 @@ const chrono = require("chrono-node");
 const moment = require('moment');
 /**
  * from chrono tags
+ * TODO: get more primitive way
  * @type {[RegExp]}
  */
 const supportedLang = [
@@ -15,7 +16,6 @@ const supportedLang = [
 ];
 /**
  * text should be includes number
- * TODO: get more primitive way
  * @param {Object} chronoDate
  * @returns {boolean}
  */
