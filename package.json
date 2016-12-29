@@ -5,7 +5,6 @@
   "author": "azu",
   "license": "MIT",
   "files": [
-    "bin/",
     "lib/",
     "src/"
   ],
