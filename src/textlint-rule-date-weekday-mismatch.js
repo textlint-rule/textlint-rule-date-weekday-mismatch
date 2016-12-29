@@ -7,19 +7,23 @@ const moment = require('moment');
  * @type {[RegExp]}
  */
 const supportedLang = [
-    [/^EN/, "en"],
-    [/^JP/, "ja"],
-    [/^ES/, "es"],
-    [/^FR/, "fr"],
-    [/^ZH/, "zh"]
+    [/^EN/i, "en"],
+    [/^JP/i, "ja"],
+    [/^ES/i, "es"],
+    [/^FR/i, "fr"],
+    [/^ZH/i, "zh"]
 ];
 
 /**
  * detect lang and return language string
  * @param {string[]} tags
+ * @param {string} [preferLang]
  * @returns {string|null}
  */
-const detectLang = (tags) => {
+const detectLang = (tags, preferLang) => {
+    if (preferLang) {
+        return preferLang;
+    }
     const targetLangs = supportedLang.filter(([langRegExp]) => {
         return tags.some(tag => langRegExp.test(tag));
     });
@@ -29,7 +33,13 @@ const detectLang = (tags) => {
     const selectedLang = targetLangs[0];
     return selectedLang[1];
 };
-function reporter(context) {
+/**
+ *
+ * @param context
+ * @param {Object} [config]
+ */
+function reporter(context, config = {}) {
+    const preferLang = config.lang;
     const {Syntax, RuleError, report, fixer, getSource} = context;
     if (typeof Intl === "undefined") {
         throw new Error("Not support your Node.js/browser. should be use latest version.");
@@ -39,13 +49,11 @@ function reporter(context) {
             const text = getSource(node);
             const chronoDate = chrono.parse(text);
             chronoDate.forEach(chronoDate => {
-                const lang = detectLang(Object.keys(chronoDate.tags));
+                const lang = detectLang(Object.keys(chronoDate.tags), preferLang);
                 if (!lang) {
                     // not found lang
                     return;
                 }
-                // change lang
-                moment.locale(lang);
                 // get weekday from actual date string
                 const kV = chronoDate.start.knownValues;
                 const $moment = moment(`${kV.year}-${kV.month}-${kV.day}`, "YYYY-MM-DD", lang);
@@ -67,9 +75,9 @@ function reporter(context) {
                 // format http://momentjs.com/docs/#/parsing/string-format/
                 const weekdayPatterns = [
                     // date-format , symbols
-                    ["dd", moment.weekdaysMin()],
-                    ["ddd", moment.weekdaysShort()],
-                    ["dddd", moment.weekdays()]
+                    ["dd", moment.localeData(lang).weekdaysMin()],
+                    ["ddd", moment.localeData(lang).weekdaysShort()],
+                    ["dddd", moment.localeData(lang).weekdays()]
                 ];
                 weekdayPatterns.forEach(([format, symbols]) => {
                     if (symbols.indexOf(maybeWeekdayText) === -1) {

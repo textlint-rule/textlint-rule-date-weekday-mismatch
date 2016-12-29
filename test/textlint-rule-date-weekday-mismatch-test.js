@@ -34,6 +34,21 @@ tester.run("rule", rule, {
                 }
             ]
         },
+        // options
+        {
+            text: "2016-12-29(月)",
+            output: "2016-12-29(木)",
+            options: {
+                lang: "ja-JP"
+            },
+            errors: [
+                {
+                    message: "2016-12-29(月) mismatch weekday.\n2016-12-29(月) => 2016-12-29(木)",
+                    line: 1,
+                    column: 12
+                }
+            ]
+        },
         {
             text: "2016年12月29日（月曜日）",
             output: "2016年12月29日（木曜日）",

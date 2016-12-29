@@ -7,6 +7,7 @@ textlint rule that found mismatch date and weekday.
 Correct date and weekday.
 
     2016-12-29(Thursday)
+    2016-12-29(木曜)
 
 **NG**:
 
@@ -19,6 +20,8 @@ Incorrect date and weekday.
     2016-12-29(Friday) => 2016-12-29(Thursday)
 
 ## Supported lang
+
+Automatically detect language from your text!
 
 - en
 - ja(日本語)
@@ -54,6 +57,42 @@ Via CLI
 ```
 textlint --rule date-weekday-mismatch README.md
 ```
+
+## Options
+
+- `lang`: string
+    - Default: none(Automatically detect language)
+    - Specify language for date string
+
+```json
+{
+    "rules": {
+        "date-weekday-mismatch": {
+            "lang": "ja"
+        }
+    }
+}
+```
+
+For example, `2016-12-30` is `en` by default.
+But, You can specify `2016-12-30` is `ja-JP` text by options
+
+```json
+{
+    "rules": {
+        "date-weekday-mismatch": {
+            "lang": "ja-JP"
+        }
+    }
+}
+```
+
+language format following ISO 639-1.
+
+e.g.) `en-US`, `en`, `ja` etc..
+
+- [ISO 639-1 - Wikipedia](https://en.wikipedia.org/wiki/ISO_639-1 "ISO 639-1 - Wikipedia")
+- [Moment.js | Docs](http://momentjs.com/docs/#/i18n/changing-locale/ "Moment.js | Docs")
 
 ## Acknowledge
 
