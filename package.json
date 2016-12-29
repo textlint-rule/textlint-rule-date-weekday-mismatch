@@ -35,7 +35,6 @@
   ],
   "dependencies": {
     "chrono-node": "^1.2.5",
-    "intl": "^1.2.5",
     "moment": "^2.17.1"
   }
 }
