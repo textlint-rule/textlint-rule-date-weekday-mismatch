@@ -28,13 +28,24 @@ tester.run("rule", rule, {
             ]
         },
         {
-            text: "2017年1月1日(火)",
-            output: "2017年1月1日(日)",
+            text: "2017年1月1日 (火)",
+            output: "2017年1月1日 (日)",
+            errors: [
+                {
+                    message: "2017年1月1日 (火) mismatch weekday.\n2017年1月1日 (火) => 2017年1月1日 (日)",
+                    line: 1,
+                    column: 12
+                }
+            ]
+        },
+        {
+            text: "2016年12月30日〜2017年1月1日(火)",
+            output: "2016年12月30日〜2017年1月1日(日)",
             errors: [
                 {
                     message: "2017年1月1日(火) mismatch weekday.\n2017年1月1日(火) => 2017年1月1日(日)",
                     line: 1,
-                    column: 11
+                    column: 23
                 }
             ]
         },

@@ -57,6 +57,7 @@ function reporter(context, config = {}) {
             const text = getSource(node);
             const chronoDate = chrono.parse(text);
             // ignore "今日" text
+
             chronoDate.filter(textIncludesNumber).forEach(chronoDate => {
                 const lang = detectLang(Object.keys(chronoDate.tags), preferLang);
                 if (!lang) {
@@ -69,27 +70,30 @@ function reporter(context, config = {}) {
                 try {
                     $moment = moment(`${kV.year}-${kV.month}-${kV.day}`, "YYYY-MM-DD", lang);
                 } catch (error) {
+                    console.warn("Maybe textlint-rule-date-weekday-mismatch options was wrong language.", lang);
                     // parse error is ignore
                     return;
                 }
                 if (!$moment.isValid()) {
                     return;
                 }
-                const slicedText = text.slice(chronoDate.index);
+                // get (weekday)
+                const startOfPairSymbol = chronoDate.text.length + chronoDate.index;
+                const slicedText = text.slice(startOfPairSymbol);
                 // (match) or （match）
-                const match = slicedText.match(/\s*?([(（])([^(（)]+)([)）])/);
+                const match = slicedText.match(/^(\s*?[(（])([^(（)]+)([)）])/);
                 if (!match) {
                     return;
                 }
                 const actualDateText = match[0];
                 const actualTextAll = `${chronoDate.text}${actualDateText}`;
-                const pairStartSymbol = match[1];// (
+                const pairStartSymbol = match[1];// ( and padding-left
                 const pairEndSymbol = match[3]; // )
                 const maybeWeekdayText = match[2].trim(); // weekday
                 // 2016年12月30日                  (金曜日)
                 //       ^               ^        ^
                 // chronoDate.index  match.index  pairStartSymbol.length
-                const paddingIndex = chronoDate.index + match.index + pairStartSymbol.length;
+                const paddingIndex = startOfPairSymbol + match.index + pairStartSymbol.length;
                 // format http://momentjs.com/docs/#/parsing/string-format/
                 const weekdayPatterns = [
                     // date-format , symbols
