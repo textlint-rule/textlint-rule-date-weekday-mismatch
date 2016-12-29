@@ -13,7 +13,14 @@ const supportedLang = [
     [/^FR/i, "fr"],
     [/^ZH/i, "zh"]
 ];
-
+/**
+ * text should be includes number
+ * @param {Object} chronoDate
+ * @returns {boolean}
+ */
+const textIncludesNumber = (chronoDate) => {
+    return /[0-9０-９]/.test(chronoDate.text);
+};
 /**
  * detect lang and return language string
  * @param {string[]} tags
@@ -44,11 +51,13 @@ function reporter(context, config = {}) {
     if (typeof Intl === "undefined") {
         throw new Error("Not support your Node.js/browser. should be use latest version.");
     }
+
     return {
         [Syntax.Str](node){
             const text = getSource(node);
             const chronoDate = chrono.parse(text);
-            chronoDate.forEach(chronoDate => {
+            // ignore "今日" text
+            chronoDate.filter(textIncludesNumber).forEach(chronoDate => {
                 const lang = detectLang(Object.keys(chronoDate.tags), preferLang);
                 if (!lang) {
                     // not found lang
@@ -56,7 +65,13 @@ function reporter(context, config = {}) {
                 }
                 // get weekday from actual date string
                 const kV = chronoDate.start.knownValues;
-                const $moment = moment(`${kV.year}-${kV.month}-${kV.day}`, "YYYY-MM-DD", lang);
+                let $moment;
+                try {
+                    $moment = moment(`${kV.year}-${kV.month}-${kV.day}`, "YYYY-MM-DD", lang);
+                } catch (error) {
+                    // parse error is ignore
+                    return;
+                }
                 if (!$moment.isValid()) {
                     return;
                 }

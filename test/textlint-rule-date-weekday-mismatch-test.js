@@ -10,7 +10,9 @@ tester.run("rule", rule, {
         "2016-12-29(Thursday)",
         "2016-12-29(Tsu)",
         // invalid date should be ignored
-        "11月 25日 (火曜日) "
+        "11月 25日 (火曜日) ",
+        // ignore relative word
+        "今日は日曜 (火曜日) "
     ],
     invalid: [
         // single match
