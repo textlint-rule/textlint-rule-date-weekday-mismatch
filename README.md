@@ -1,6 +1,6 @@
 # textlint-rule-date-weekday-mismatch [![Build Status](https://travis-ci.org/azu/textlint-rule-date-weekday-mismatch.svg?branch=master)](https://travis-ci.org/azu/textlint-rule-date-weekday-mismatch) [![textlint rule](https://img.shields.io/badge/textlint-fixable-green.svg?style=social)](https://textlint.github.io/) 
 
-textlint rule that found mismatch date and weekday.
+textlint rule that found mismatch between date and weekday. 
 
 **OK**:
 
