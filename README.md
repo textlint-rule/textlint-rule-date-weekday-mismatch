@@ -8,6 +8,7 @@ Correct date and weekday.
 
     2016-12-29(Thursday)
     2016-12-29(木曜日)
+    2016年12月30日(木曜日)
 
 **NG**:
 
