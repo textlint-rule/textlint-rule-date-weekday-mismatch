@@ -57,6 +57,9 @@ function reporter(context, config = {}) {
                 // get weekday from actual date string
                 const kV = chronoDate.start.knownValues;
                 const $moment = moment(`${kV.year}-${kV.month}-${kV.day}`, "YYYY-MM-DD", lang);
+                if (!$moment.isValid()) {
+                    return;
+                }
                 const slicedText = text.slice(chronoDate.index);
                 // (match) or （match）
                 const match = slicedText.match(/\s*?([(（])([^(（)]+)([)）])/);

@@ -8,7 +8,9 @@ tester.run("rule", rule, {
         "2016年12月29日(木)",
         "2016年12月29日(木曜日)",
         "2016-12-29(Thursday)",
-        "2016-12-29(Tsu)"
+        "2016-12-29(Tsu)",
+        // invalid date should be ignored
+        "11月 25日 (火曜日) "
     ],
     invalid: [
         // single match
@@ -20,6 +22,17 @@ tester.run("rule", rule, {
                     message: "2016年12月29日(月) mismatch weekday.\n2016年12月29日(月) => 2016年12月29日(木)",
                     line: 1,
                     column: 13
+                }
+            ]
+        },
+        {
+            text: "2017年1月1日(火)",
+            output: "2017年1月1日(日)",
+            errors: [
+                {
+                    message: "2017年1月1日(火) mismatch weekday.\n2017年1月1日(火) => 2017年1月1日(日)",
+                    line: 1,
+                    column: 11
                 }
             ]
         },
