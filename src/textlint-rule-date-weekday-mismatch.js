@@ -15,6 +15,7 @@ const supportedLang = [
 ];
 /**
  * text should be includes number
+ * TODO: get more primitive way
  * @param {Object} chronoDate
  * @returns {boolean}
  */
