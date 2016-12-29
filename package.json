@@ -1,0 +1,41 @@
+{
+  "directories": {
+    "test": "test"
+  },
+  "author": "azu",
+  "license": "MIT",
+  "files": [
+    "bin/",
+    "lib/",
+    "src/"
+  ],
+  "name": "textlint-rule-date-weekday-mismatch",
+  "version": "1.0.0",
+  "description": "textlint rule that found mismatch date and weekday.",
+  "main": "lib/textlint-rule-date-weekday-mismatch.js",
+  "scripts": {
+    "test": "textlint-scripts test",
+    "prepublish": "npm run --if-present build",
+    "build": "textlint-scripts build",
+    "watch": "textlint-scripts build --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/azu/textlint-rule-date-weekday-mismatch.git"
+  },
+  "bugs": {
+    "url": "https://github.com/azu/textlint-rule-date-weekday-mismatch/issues"
+  },
+  "homepage": "https://github.com/azu/textlint-rule-date-weekday-mismatch",
+  "devDependencies": {
+    "textlint-scripts": "^1.2.2"
+  },
+  "keywords": [
+    "textlintrule"
+  ],
+  "dependencies": {
+    "chrono-node": "^1.2.5",
+    "intl": "^1.2.5",
+    "moment": "^2.17.1"
+  }
+}

@@ -1,0 +1,91 @@
+# textlint-rule-date-weekday-mismatch [![textlint rule](https://img.shields.io/badge/textlint-fixable-green.svg?style=social)](https://textlint.github.io/) 
+
+textlint rule that found mismatch date and weekday.
+
+**OK**:
+
+Correct date and weekday.
+
+    2016-12-29(Thursday)
+
+**NG**:
+
+Incorrect date and weekday.
+
+    2016-12-29(Friday)
+
+    // Error:
+    2016-12-29(Friday) mismatch weekday.
+    2016-12-29(Friday) => 2016-12-29(Thursday)
+
+## Supported lang
+
+- en
+- ja(日本語)
+- es
+- fr
+- zh
+
+This rule depended on following library:
+
+- [wanasit/chrono](https://github.com/wanasit/chrono)
+- [Moment.js](http://momentjs.com/)
+
+## Install
+
+Install with [npm](https://www.npmjs.com/):
+
+    npm install textlint-rule-date-weekday-mismatch
+
+## Usage
+
+Via `.textlintrc`(Recommended)
+
+```json
+{
+    "rules": {
+        "date-weekday-mismatch": true
+    }
+}
+```
+
+Via CLI
+
+```
+textlint --rule date-weekday-mismatch README.md
+```
+
+## Acknowledge
+
+- [日付曜日矛盾 // Speaker Deck](https://speakerdeck.com/shirayu/ri-fu-yao-ri-mao-dun "日付曜日矛盾 // Speaker Deck")
+
+## Changelog
+
+See [Releases page](https://github.com/azu/textlint-rule-date-weekday-mismatch/releases).
+
+## Running tests
+
+Install devDependencies and Run `npm test`:
+
+    npm i -d && npm test
+
+## Contributing
+
+Pull requests and stars are always welcome.
+
+For bugs and feature requests, [please create an issue](https://github.com/azu/textlint-rule-date-weekday-mismatch/issues).
+
+1. Fork it!
+2. Create your feature branch: `git checkout -b my-new-feature`
+3. Commit your changes: `git commit -am 'Add some feature'`
+4. Push to the branch: `git push origin my-new-feature`
+5. Submit a pull request :D
+
+## Author
+
+- [github/azu](https://github.com/azu)
+- [twitter/azu_re](https://twitter.com/azu_re)
+
+## License
+
+MIT © azu
