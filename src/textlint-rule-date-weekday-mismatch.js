@@ -22,6 +22,15 @@ const supportedLang = [
 const textIncludesNumber = (chronoDate) => {
     return /[0-9０-９]/.test(chronoDate.text);
 };
+const yearMonthDayShouldKnownValues = (chronoDate) => {
+    if (!chronoDate.start) {
+        return false;
+    }
+    // year-month-day should known value
+    // if have not anyone, not report as error
+    const kV = chronoDate.start.knownValues;
+    return kV.year !== undefined && kV.month !== undefined && kV.day !== undefined;
+};
 /**
  * detect lang and return language string
  * @param {string[]} tags
@@ -56,10 +65,11 @@ function reporter(context, config = {}) {
     return {
         [Syntax.Str](node){
             const text = getSource(node);
-            const chronoDate = chrono.parse(text);
+            const chronoDates = chrono.parse(text);
             // ignore "今日" text
-
-            chronoDate.filter(textIncludesNumber).forEach(chronoDate => {
+            // ignore not valid data
+            const filteredChronoDates = chronoDates.filter(textIncludesNumber).filter(yearMonthDayShouldKnownValues);
+            filteredChronoDates.forEach(chronoDate => {
                 const lang = detectLang(Object.keys(chronoDate.tags), preferLang);
                 if (!lang) {
                     // not found lang
@@ -71,7 +81,7 @@ function reporter(context, config = {}) {
                 try {
                     $moment = moment(`${kV.year}-${kV.month}-${kV.day}`, "YYYY-MM-DD", lang);
                 } catch (error) {
-                    console.warn("Maybe textlint-rule-date-weekday-mismatch options was wrong language.", lang);
+                    report(node, new RuleError(`Maybe textlint-rule-date-weekday-mismatch options was wrong language. lang: ${lang}`));
                     // parse error is ignore
                     return;
                 }
