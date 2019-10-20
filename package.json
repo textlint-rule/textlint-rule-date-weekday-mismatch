@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/azu/textlint-rule-date-weekday-mismatch",
   "devDependencies": {
-    "textlint-scripts": "^1.2.2"
+    "textlint-scripts": "^3.0.0"
   },
   "keywords": [
     "textlintrule"
