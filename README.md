@@ -1,4 +1,4 @@
-# textlint-rule-date-weekday-mismatch [![Build Status](https://travis-ci.org/azu/textlint-rule-date-weekday-mismatch.svg?branch=master)](https://travis-ci.org/azu/textlint-rule-date-weekday-mismatch) [![textlint rule](https://img.shields.io/badge/textlint-fixable-green.svg?style=social)](https://textlint.github.io/) 
+# textlint-rule-date-weekday-mismatch [![Build Status](https://travis-ci.org/textlint-rule/textlint-rule-date-weekday-mismatch.svg?branch=master)](https://travis-ci.org/textlint-rule/textlint-rule-date-weekday-mismatch) [![textlint rule](https://img.shields.io/badge/textlint-fixable-green.svg?style=social)](https://textlint.github.io/) 
 
 textlint rule that found mismatch between date and weekday. 
 
@@ -100,7 +100,7 @@ e.g.) `en-US`, `en`, `ja` etc..
 
 ## Changelog
 
-See [Releases page](https://github.com/azu/textlint-rule-date-weekday-mismatch/releases).
+See [Releases page](https://github.com/textlint-rule/textlint-rule-date-weekday-mismatch/releases).
 
 ## Running tests
 
@@ -112,7 +112,7 @@ Install devDependencies and Run `npm test`:
 
 Pull requests and stars are always welcome.
 
-For bugs and feature requests, [please create an issue](https://github.com/azu/textlint-rule-date-weekday-mismatch/issues).
+For bugs and feature requests, [please create an issue](https://github.com/textlint-rule/textlint-rule-date-weekday-mismatch/issues).
 
 1. Fork it!
 2. Create your feature branch: `git checkout -b my-new-feature`
