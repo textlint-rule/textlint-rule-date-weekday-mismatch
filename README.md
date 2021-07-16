@@ -1,4 +1,4 @@
-# textlint-rule-date-weekday-mismatch [![Build Status](https://travis-ci.org/textlint-rule/textlint-rule-date-weekday-mismatch.svg?branch=master)](https://travis-ci.org/textlint-rule/textlint-rule-date-weekday-mismatch) [![textlint rule](https://img.shields.io/badge/textlint-fixable-green.svg?style=social)](https://textlint.github.io/) 
+# textlint-rule-date-weekday-mismatch [![Actions Status: test](https://github.com/textlint-rule/textlint-rule-date-weekday-mismatch.svg?branch=master)](https://travis-ci.org/textlint-rule/textlint-rule-date-weekday-mismatch) [![textlint rule](https://img.shields.io/badge/textlint-fixable-green/workflows/test/badge.svg)](https://github.com/textlint-rule/textlint-rule-date-weekday-mismatch.svg?branch=master)](https://travis-ci.org/textlint-rule/textlint-rule-date-weekday-mismatch) [![textlint rule](https://img.shields.io/badge/textlint-fixable-green/actions?query=workflow%3A"test") 
 
 textlint rule that found mismatch between date and weekday. 
 
