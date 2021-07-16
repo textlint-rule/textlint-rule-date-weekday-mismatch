@@ -120,7 +120,7 @@ function reporter(context, config = {}) {
                     const expectedWeekday = $moment.format(format);
                     if (maybeWeekdayText !== expectedWeekday) {
                         const fix = fixer.replaceTextRange(
-                            [paddingIndex, paddingIndex + expectedWeekday.length],
+                            [paddingIndex, paddingIndex + maybeWeekdayText.length],
                             expectedWeekday
                         );
                         report(node, new RuleError(`${actualTextAll} mismatch weekday.\n${actualTextAll} => ${chronoDate.text}${pairStartSymbol}${expectedWeekday}${pairEndSymbol}`, {
