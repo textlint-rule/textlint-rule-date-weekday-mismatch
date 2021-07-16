@@ -1,4 +1,5 @@
-const TextLintTester = require("textlint-tester");
+import TextLintTester from "textlint-tester";
+
 const tester = new TextLintTester();
 // rule
 const rule = require("../src/textlint-rule-date-weekday-mismatch");
@@ -27,6 +28,17 @@ tester.run("rule", rule, {
             errors: [
                 {
                     message: "2016年12月29日(月) mismatch weekday.\n2016年12月29日(月) => 2016年12月29日(木)",
+                    line: 1,
+                    column: 13
+                }
+            ]
+        },
+        {
+            text: "2021-07-02 (Thursday)",
+            output: "2021-07-02 (Friday)",
+            errors: [
+                {
+                    message: "2021-07-02 (Thursday) mismatch weekday.\n2021-07-02 (Thursday) => 2021-07-02 (Friday)",
                     line: 1,
                     column: 13
                 }
@@ -110,6 +122,6 @@ tester.run("rule", rule, {
                 }
             ]
         },
-
+    
     ]
 });
