@@ -1,6 +1,6 @@
 # textlint-rule-date-weekday-mismatch [![test](https://github.com/textlint-rule/textlint-rule-date-weekday-mismatch/actions/workflows/test.yml/badge.svg)](https://github.com/textlint-rule/textlint-rule-date-weekday-mismatch/actions/workflows/test.yml)
 
-textlint rule that found mismatch between date and weekday. 
+textlint rule that found mismatch between date and weekday.
 
 **OK**:
 
@@ -25,7 +25,6 @@ Automatically detect language from your text!
 
 - en
 - ja(日本語)
-- es
 - fr
 - zh
 
