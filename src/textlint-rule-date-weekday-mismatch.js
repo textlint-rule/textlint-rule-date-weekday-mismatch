@@ -10,7 +10,6 @@ const moment = require('moment');
 const supportedLang = [
     [/^EN/i, "en"],
     [/^JP/i, "ja"],
-    [/^ES/i, "es"],
     [/^FR/i, "fr"],
     [/^ZH/i, "zh"]
 ];
