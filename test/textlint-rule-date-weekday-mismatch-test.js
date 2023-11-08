@@ -2,7 +2,16 @@ import TextLintTester from "textlint-tester";
 
 const tester = new TextLintTester();
 // rule
-const rule = require("../src/textlint-rule-date-weekday-mismatch");
+const dateWeekdayMismatchRule = require("../src/textlint-rule-date-weekday-mismatch");
+const rule = {
+    rules: [{
+        ruleId: "date-weekday-mismatch",
+        rule: dateWeekdayMismatchRule,
+        options: {
+            lang: "ja"
+        }
+    }]
+}
 // ruleName, rule, { valid, invalid }
 tester.run("rule", rule, {
     valid: [
@@ -122,6 +131,6 @@ tester.run("rule", rule, {
                 }
             ]
         },
-    
+
     ]
 });
