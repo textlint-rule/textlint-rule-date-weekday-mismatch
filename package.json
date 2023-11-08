@@ -27,14 +27,14 @@
   },
   "homepage": "https://github.com/textlint-rule/textlint-rule-date-weekday-mismatch",
   "devDependencies": {
-    "textlint-scripts": "^12.0.2"
+    "textlint-scripts": "^13.4.0"
   },
   "keywords": [
     "textlintrule"
   ],
   "dependencies": {
-    "chrono-node": "^1.2.5",
+    "chrono-node": "^2.7.0",
     "moment": "^2.29.1",
-    "textlint-tester": "^12.0.2"
+    "textlint-tester": "^13.4.0"
   }
 }
