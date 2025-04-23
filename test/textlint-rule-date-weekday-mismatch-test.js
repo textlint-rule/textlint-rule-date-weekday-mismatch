@@ -1,8 +1,19 @@
 import TextLintTester from "textlint-tester";
+import sinon from "sinon";
 
 const tester = new TextLintTester();
 // rule
 const rule = require("../src/textlint-rule-date-weekday-mismatch");
+
+// Mock: fix current date to 2025-04-23 to test `useCurrentYearIfMissing` option
+let clock;
+before(() => {
+    clock = sinon.useFakeTimers(new Date(2025, 4, 23).getTime());
+});
+after(() => {
+    clock.restore();
+});
+
 // ruleName, rule, { valid, invalid }
 tester.run("rule", rule, {
     valid: [
