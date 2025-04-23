@@ -50,7 +50,6 @@ const detectLang = (tags, preferLang) => {
     const selectedLang = targetLangs[0];
     return selectedLang[1];
 };
-
 /**
  * Add current year to date string if missing.
  * @param {string} dateText
@@ -58,7 +57,7 @@ const detectLang = (tags, preferLang) => {
  * @param {string} lang
  * @returns {string}
  */
-function addYearToDateText(dateText, year, lang) {
+const addYearToDateText = (dateText, year, lang) => {
     // Japanese: 4月23日(月) → 2024年4月23日(月)
     if (lang === "ja") {
         return `${year}年${dateText}`;
@@ -102,7 +101,9 @@ function reporter(context, config = {}) {
                     ) {
                         // Detect language for the date string
                         const lang = detectLang(Object.keys(chronoDate.tags), preferLang);
-                        if (!lang) return;
+                        if (!lang) {
+                            return;
+                        }
                         // Re-parse the text with the year added
                         const newText = addYearToDateText(chronoDate.text, currentYear, lang);
                         const reparsed = chrono.parse(newText, undefined, {forwardDate: true});
