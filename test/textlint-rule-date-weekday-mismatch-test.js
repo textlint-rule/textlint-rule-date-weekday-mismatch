@@ -18,7 +18,18 @@ tester.run("rule", rule, {
         // invalid date should be ignored
         "11月 25日 (火曜日) ",
         // ignore relative word
-        "今日(火曜日)はどうしよう"
+        "今日(火曜日)はどうしよう",
+        // useCurrentYearIfMissing option: valid
+        {
+            text: "4月23日(水)",
+            options: { useCurrentYearIfMissing: true, lang: "ja" },
+            // 2025年4月23日は水曜日
+        },
+        {
+            text: "4/23(Wed)",
+            options: { useCurrentYearIfMissing: true, lang: "en" },
+            // 2025-04-23 is Wednesday
+        },
     ],
     invalid: [
         // single match
@@ -122,6 +133,30 @@ tester.run("rule", rule, {
                 }
             ]
         },
-    
+        // useCurrentYearIfMissing option: invalid
+        {
+            text: "4月23日(金)",
+            output: "4月23日(水)",
+            options: { useCurrentYearIfMissing: true, lang: "ja" },
+            errors: [
+                {
+                    message: "4月23日(金) mismatch weekday.\n4月23日(金) => 4月23日(水)",
+                    line: 1,
+                    column: 7
+                }
+            ]
+        },
+        {
+            text: "4/23(Fri)",
+            output: "4/23(Wed)",
+            options: { useCurrentYearIfMissing: true, lang: "en" },
+            errors: [
+                {
+                    message: "4/23(Fri) mismatch weekday.\n4/23(Fri) => 4/23(Wed)",
+                    line: 1,
+                    column: 6
+                }
+            ]
+        },
     ]
 });
