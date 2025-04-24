@@ -81,6 +81,7 @@ const addYearToDateText = (dateText, year, lang) => {
 function reporter(context, config = {}) {
     const preferLang = config.lang;
     const useCurrentYearIfMissing = config.useCurrentYearIfMissing;
+    const currentYearOption = config.currentYear;
     const {Syntax, RuleError, report, fixer, getSource} = context;
     if (typeof Intl === "undefined") {
         throw new Error("Not support your Node.js/browser. should be use latest version.");
@@ -92,7 +93,8 @@ function reporter(context, config = {}) {
             let chronoDates = chrono.parse(text);
             // Add current year if missing and option is enabled
             if (useCurrentYearIfMissing) {
-                const currentYear = (new Date()).getFullYear();
+                // Use currentYear option if provided, otherwise use system year
+                const currentYear = currentYearOption ?? (new Date()).getFullYear();
                 chronoDates.forEach(chronoDate => {
                     // If year is not specified in the parsed result
                     if (
@@ -104,7 +106,7 @@ function reporter(context, config = {}) {
                         if (!lang) {
                             return;
                         }
-                        // Re-parse the text with the year added
+                        // Re-parse the text with the year added (using currentYear)
                         const newText = addYearToDateText(chronoDate.text, currentYear, lang);
                         const reparsed = chrono.parse(newText, undefined, {forwardDate: true});
                         // If reparsed successfully, update knownValues with year/month/day

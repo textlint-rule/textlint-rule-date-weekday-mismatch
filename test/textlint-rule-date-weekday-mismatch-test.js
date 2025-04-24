@@ -1,18 +1,8 @@
 import TextLintTester from "textlint-tester";
-import sinon from "sinon";
 
 const tester = new TextLintTester();
 // rule
 const rule = require("../src/textlint-rule-date-weekday-mismatch");
-
-// Mock: fix current date to 2025-04-23 to test `useCurrentYearIfMissing` option
-let clock;
-before(() => {
-    clock = sinon.useFakeTimers(new Date(2025, 4, 23).getTime());
-});
-after(() => {
-    clock.restore();
-});
 
 // ruleName, rule, { valid, invalid }
 tester.run("rule", rule, {
@@ -33,12 +23,12 @@ tester.run("rule", rule, {
         // useCurrentYearIfMissing option: valid
         {
             text: "4月23日(水)",
-            options: { useCurrentYearIfMissing: true, lang: "ja" },
+            options: { useCurrentYearIfMissing: true, currentYear: 2025, lang: "ja" },
             // 2025年4月23日は水曜日
         },
         {
             text: "4/23(Wed)",
-            options: { useCurrentYearIfMissing: true, lang: "en" },
+            options: { useCurrentYearIfMissing: true, currentYear: 2025, lang: "en" },
             // 2025-04-23 is Wednesday
         },
     ],
@@ -148,7 +138,7 @@ tester.run("rule", rule, {
         {
             text: "4月23日(金)",
             output: "4月23日(水)",
-            options: { useCurrentYearIfMissing: true, lang: "ja" },
+            options: { useCurrentYearIfMissing: true, currentYear: 2025, lang: "ja" },
             errors: [
                 {
                     message: "4月23日(金) mismatch weekday.\n4月23日(金) => 4月23日(水)",
@@ -160,7 +150,7 @@ tester.run("rule", rule, {
         {
             text: "4/23(Fri)",
             output: "4/23(Wed)",
-            options: { useCurrentYearIfMissing: true, lang: "en" },
+            options: { useCurrentYearIfMissing: true, currentYear: 2025, lang: "en" },
             errors: [
                 {
                     message: "4/23(Fri) mismatch weekday.\n4/23(Fri) => 4/23(Wed)",
