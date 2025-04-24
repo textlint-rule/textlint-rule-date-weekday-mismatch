@@ -51,12 +51,74 @@ const detectLang = (tags, preferLang) => {
     return selectedLang[1];
 };
 /**
+ * Add current year to date string if missing.
+ * @param {string} dateText
+ * @param {number} year
+ * @param {string} lang
+ * @returns {string}
+ */
+const addYearToDateText = (dateText, year, lang) => {
+    // Japanese: 4月23日(月) → 2024年4月23日(月)
+    if (lang === "ja") {
+        return `${year}年${dateText}`;
+    }
+    // Slash: 4/23(月) → 2024/4/23(月)
+    if (/^[0-9]{1,2}\/[0-9]{1,2}/.test(dateText)) {
+        return `${year}/${dateText}`;
+    }
+    // Dash: 4-23(Mon) → 2024-4-23(Mon)
+    if (/^[0-9]{1,2}-[0-9]{1,2}/.test(dateText)) {
+        return `${year}-${dateText}`;
+    }
+    // Default: prepend year and a space
+    return `${year} ${dateText}`;
+}
+/**
+ * Create chronoDates array, optionally supplementing year if needed.
+ * @param {string} text
+ * @param {Object} options
+ * @param {string} options.preferLang
+ * @param {boolean} options.useCurrentYearIfMissing
+ * @param {number} options.currentYear
+ * @returns {Array}
+ */
+function createChronoDates(text, options) {
+    const { preferLang, useCurrentYearIfMissing, currentYear } = options;
+    const chronoDates = chrono.parse(text);
+    if (!useCurrentYearIfMissing) {
+        return chronoDates;
+    }
+    chronoDates.forEach(chronoDate => {
+        // If year is not specified in the parsed result
+        if (
+            chronoDate.start &&
+            chronoDate.start.knownValues.year === undefined
+        ) {
+            // Detect language for the date string
+            const lang = detectLang(Object.keys(chronoDate.tags), preferLang);
+            if (!lang) {
+                return;
+            }
+            // Re-parse the text with the year added (using currentYear)
+            const newText = addYearToDateText(chronoDate.text, currentYear, lang);
+            const reparsed = chrono.parse(newText, undefined, {forwardDate: true});
+            // If reparsed successfully, update knownValues with year/month/day
+            if (reparsed && reparsed[0] && reparsed[0].start && reparsed[0].start.knownValues) {
+                Object.assign(chronoDate.start.knownValues, reparsed[0].start.knownValues);
+            }
+        }
+    });
+    return chronoDates;
+}
+/**
  *
  * @param context
  * @param {Object} [config]
  */
 function reporter(context, config = {}) {
     const preferLang = config.lang;
+    const useCurrentYearIfMissing = config.useCurrentYearIfMissing;
+    const currentYearOption = config.currentYear;
     const {Syntax, RuleError, report, fixer, getSource} = context;
     if (typeof Intl === "undefined") {
         throw new Error("Not support your Node.js/browser. should be use latest version.");
@@ -65,7 +127,13 @@ function reporter(context, config = {}) {
     return {
         [Syntax.Str](node){
             const text = getSource(node);
-            const chronoDates = chrono.parse(text);
+            // Use helper function to create chronoDates
+            const currentYear = currentYearOption ?? (new Date()).getFullYear();
+            const chronoDates = createChronoDates(text, {
+                preferLang,
+                useCurrentYearIfMissing,
+                currentYear
+            });
             // ignore "今日" text
             // ignore not valid data
             const filteredChronoDates = chronoDates.filter(textIncludesNumber).filter(yearMonthDayShouldKnownValues);

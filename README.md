@@ -87,6 +87,46 @@ But, You can specify `2016-12-30` is `ja-JP` text by options
 }
 ```
 
+- `useCurrentYearIfMissing`: boolean
+    - Default: false
+    - If true, when the year is missing in the date string (e.g. `4月23日(月)`), the current year will be automatically added for validation.
+    - This is useful for documents that often omit the year in dates.
+
+Example:
+
+```json
+{
+    "rules": {
+        "date-weekday-mismatch": {
+            "useCurrentYearIfMissing": true
+        }
+    }
+}
+```
+
+If the text contains `4月23日(水)`, and the current year is 2025, it will be interpreted as `2025年4月23日(水)` for the weekday check.
+
+- `currentYear`: number
+    - Default: the current year (from system date)
+    - If specified, this value will be used as the year when supplementing missing years in date strings (used only when `useCurrentYearIfMissing` is true).
+    - This is useful for testing or for documents that should always use a specific year for validation.
+
+Example (using both options):
+
+```json
+{
+    "rules": {
+        "date-weekday-mismatch": {
+            "useCurrentYearIfMissing": true,
+            "currentYear": 2025
+        }
+    }
+}
+```
+
+If the text contains `4月23日(水)`, it will always be interpreted as `2025年4月23日(水)` for the weekday check, regardless of the actual system year.
+
+
 language format following ISO 639-1.
 
 e.g.) `en-US`, `en`, `ja` etc..
