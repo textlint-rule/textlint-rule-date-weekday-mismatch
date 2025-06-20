@@ -58,10 +58,6 @@ const detectLang = (tags, preferLang) => {
  * @returns {string}
  */
 const addYearToDateText = (dateText, year, lang) => {
-    // Japanese: 4月23日(月) → 2024年4月23日(月)
-    if (lang === "ja") {
-        return `${year}年${dateText}`;
-    }
     // Slash: 4/23(月) → 2024/4/23(月)
     if (/^[0-9]{1,2}\/[0-9]{1,2}/.test(dateText)) {
         return `${year}/${dateText}`;
@@ -69,6 +65,10 @@ const addYearToDateText = (dateText, year, lang) => {
     // Dash: 4-23(Mon) → 2024-4-23(Mon)
     if (/^[0-9]{1,2}-[0-9]{1,2}/.test(dateText)) {
         return `${year}-${dateText}`;
+    }
+    // Japanese: 4月23日(月) → 2024年4月23日(月)
+    if (lang === "ja") {
+        return `${year}年${dateText}`;
     }
     // Default: prepend year and a space
     return `${year} ${dateText}`;

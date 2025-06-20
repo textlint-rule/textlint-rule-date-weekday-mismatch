@@ -31,6 +31,11 @@ tester.run("rule", rule, {
             options: { useCurrentYearIfMissing: true, currentYear: 2025, lang: "en" },
             // 2025-04-23 is Wednesday
         },
+        {
+            text: "6/20(金)",
+            options: { useCurrentYearIfMissing: true, currentYear: 2025, lang: "ja" },
+            // 2025/06/20は金曜日
+        },
     ],
     invalid: [
         // single match
@@ -154,6 +159,18 @@ tester.run("rule", rule, {
             errors: [
                 {
                     message: "4/23(Fri) mismatch weekday.\n4/23(Fri) => 4/23(Wed)",
+                    line: 1,
+                    column: 6
+                }
+            ]
+        },
+        {
+            text: "6/20(木)",
+            output: "6/20(金)",
+            options: { useCurrentYearIfMissing: true, currentYear: 2025, lang: "ja" },
+            errors: [
+                {
+                    message: "6/20(木) mismatch weekday.\n6/20(木) => 6/20(金)",
                     line: 1,
                     column: 6
                 }
